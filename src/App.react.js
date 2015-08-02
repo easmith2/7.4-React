@@ -15,11 +15,15 @@ var App = React.createClass({
     this._listenForClicks();
   },
 
+  componentDidUpdate: function() {
+    this._listenForClicks();
+  },
+
   render: function() {
     return (
       <div>
         {this._loadHeader()}
-        <Palettes palettes={this.state.palettes} listener={this._listenForClicks} />
+        {this.state.view}
       </div>
     )
   },
@@ -50,25 +54,48 @@ var App = React.createClass({
   _initRouter: function() {
     var self = this;
     self.router = Router({
-      '/': self._showIndex,
-      '/palettes/:id': self._showDetails
+      '/': self._setIndex,
+      '/palettes/:id': self._setDetails
     });
     self.router.configure({ html5history: true });
     self.router.init();
   },
 
-  _showIndex: function() {
-    console.log('in _showIndex');
+  _setIndex: function() {
+    console.log('in _setIndex');
+    this.setState({view: this._renderIndex()});
   },
 
-  _showDetails: function(id) {
-    console.log('in _showDetails, id is ', id);
+  _renderIndex: function() {
+    console.log('in _renderIndex');
+    return (
+      <div>
+        <Palettes palettes={this.state.palettes} listener={this._listenForClicks} />
+      </div>
+    )
+  },
+
+  _setDetails: function(id) {
+    console.log('in _setDetails');
+    this.setState({view: this._renderDetails(id)});
+  },
+
+  _renderDetails: function(id) {
+    console.log('in _renderDetails');
+    var justOnePalette = [];
+    justOnePalette.push(this.state.palettes[0][id - 1]);
+    var tempArr = [];
+    tempArr.push(justOnePalette);
+    return (
+      <div>
+        <Palettes palettes={tempArr} listener={this._listenForClicks} />
+      </div>
+    )
   },
 
   _listenForClicks: function() {
     var self = this;
     var titleHrefs = document.querySelectorAll("a");
-    console.log(titleHrefs);
     for (var i=0; i < titleHrefs.length; i++) {
       titleHrefs[i].addEventListener('click', function(e) {
         var targetHref = e.target.attributes.href.value;

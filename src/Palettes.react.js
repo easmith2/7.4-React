@@ -17,15 +17,15 @@ var Palettes = React.createClass({
     )
   },
 
-  componentDidUpdate: function() {
-    this._listenForClicks();
-  },
-
-  _listenForClicks: function() {
-    if (typeof this.props.listener === "function") {
-      this.props.listener();
-    }
-  }
+  // componentDidUpdate: function() {
+  //   this._listenForClicks();
+  // },
+  //
+  // _listenForClicks: function() {
+  //   if (typeof this.props.listener === "function") {
+  //     this.props.listener();
+  //   }
+  // }
 
 });
 
