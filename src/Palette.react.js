@@ -32,12 +32,13 @@ var Palette = React.createClass({
 
   _listPaletteColors: function(p) {
     var colourKeys = Object.getOwnPropertyNames(p.colours);
-    var colourTypes = ['dominant', 'contrasting-dominant', 'subdominant', 'contrasting-subdominant', 'pop'];
     var paletteColours = colourKeys.map(function(colKey, i) {
+      var tempKey = colKey.replace(/([A-Z])/g, "-$1").toLowerCase();
+      var newKey = tempKey.replace("sub-", "sub");
       return (
         <div className='palette__colour' key={p.id + colKey} style={{backgroundColor: p.colours[colKey] }}>
           <div className='palette__colourHex'>{p.colours[colKey]}</div>
-          <div className='palette__colourType'>{colourTypes[i]}</div>
+          <div className='palette__colourType'>{newKey}</div>
         </div>
       )
     });
@@ -75,22 +76,15 @@ var Palette = React.createClass({
     if (this.props.detailed === true) {
       return (
         <div className="palette__details">
-          <h4>Palette Title: {item.title}</h4>
-          <h4>Palette category: {item.category}</h4>
-          <h4>Palette Creator/Owner: {item.user.name}</h4>
-          <h4>Palette Composition:</h4>
           <ol>
-            <li>{item.colours.dominant}</li>
-            <li>{item.colours.contrastingDominant}</li>
-            <li>{item.colours.subDominant}</li>
-            <li>{item.colours.contrastingSubDominant}</li>
-            <li>{item.colours.pop}</li>
+            <li>Palette Title: {item.title}</li>
+            <li>Palette Category: {item.category}</li>
+            <li>Palette Creator/Owner: {item.user.name}</li>
           </ol>
         </div>
       )
     };
   }
-
 });
 
 module.exports = Palette;

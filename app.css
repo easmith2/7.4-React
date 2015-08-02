@@ -20,6 +20,9 @@ a {
   a:visited {
     color: inherit; }
 
+ol {
+  margin: 0; }
+
 .header__container {
   background-color: #595959;
   color: antiquewhite;
@@ -117,5 +120,9 @@ h2 {
 
 .palette__colour:hover .palette__colourType {
   opacity: 1; }
+
+.palette__details ol {
+  list-style: none;
+  padding: 25px 5px; }
 
 /*# sourceMappingURL=app.css.map */
