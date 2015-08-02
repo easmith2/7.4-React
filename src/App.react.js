@@ -12,14 +12,14 @@ var App = React.createClass({
   componentDidMount: function() {
     this._getJSON('palettes.json', this._updatePalettes);
     this._initRouter();
+    this._listenForClicks();
   },
 
   render: function() {
-    this._loadHeader();
     return (
       <div>
         {this._loadHeader()}
-        <Palettes palettes={this.state.palettes} />
+        <Palettes palettes={this.state.palettes} listener={this._listenForClicks} />
       </div>
     )
   },
@@ -55,14 +55,6 @@ var App = React.createClass({
     });
     self.router.configure({ html5history: true });
     self.router.init();
-
-    document.addEventListener('click', function(e) {
-      var targetHref = e.target.attributes.href.value;
-      if (targetHref && targetHref[0] === '/') {
-        e.preventDefault();
-        self.router.setRoute(targetHref);
-      };
-    })
   },
 
   _showIndex: function() {
@@ -71,6 +63,21 @@ var App = React.createClass({
 
   _showDetails: function(id) {
     console.log('in _showDetails, id is ', id);
+  },
+
+  _listenForClicks: function() {
+    var self = this;
+    var titleHrefs = document.querySelectorAll("a");
+    console.log(titleHrefs);
+    for (var i=0; i < titleHrefs.length; i++) {
+      titleHrefs[i].addEventListener('click', function(e) {
+        var targetHref = e.target.attributes.href.value;
+        if (targetHref && targetHref[0] === '/') {
+          e.preventDefault();
+          self.router.setRoute(targetHref);
+        };
+      })
+    }
   }
 
 });

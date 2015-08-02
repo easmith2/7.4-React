@@ -2,6 +2,11 @@ var React = require('react');
 var Palette = require('./Palette.react');
 
 var Palettes = React.createClass({
+  propTypes: {
+    palettes: React.PropTypes.array,
+    listener: React.PropTypes.func
+  },
+
   render: function() {
     return (
       <div className='palettes__main'>
@@ -10,6 +15,16 @@ var Palettes = React.createClass({
         })}
       </div>
     )
+  },
+
+  componentDidUpdate: function() {
+    this._listenForClicks();
+  },
+
+  _listenForClicks: function() {
+    if (typeof this.props.listener === "function") {
+      this.props.listener();
+    }
   }
 
 });

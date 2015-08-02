@@ -1,6 +1,10 @@
 var React = require('react');
 
 var Palette = React.createClass({
+  propTypes: {
+    palette: React.PropTypes.array
+  },
+
   render: function() {
     var tempTitle = this._listPalettes();
     return (
@@ -19,7 +23,7 @@ var Palette = React.createClass({
         <div className='palette__container' key={item.id}>
           <div className='palette__title'>
             <div>{item.title} | {item.category} |
-            <a onClick={this._handleClick} href={'/palettes/' + item.id}> see details</a>
+            <a href={'/palettes/' + item.id} data-js="titleHref"> see details</a>
             </div>
           </div>
           <div className='palette__colourContainer'>
@@ -44,10 +48,6 @@ var Palette = React.createClass({
     return (
       paletteColours
     )
-  },
-
-  _handleClick: function(e) {
-    console.log(e);
   }
 
 });
