@@ -18,7 +18,9 @@ var Palette = React.createClass({
       return (
         <div className='palette__container' key={item.id}>
           <div className='palette__title'>
-            <a onClick={self._updateUrl(item.id)} href={'/palettes/' + item.id}>{item.title} | {item.category}</a>
+            <div>{item.title} | {item.category} |
+            <a onClick={this._handleClick} href={'/palettes/' + item.id}> see details</a>
+            </div>
           </div>
           <div className='palette__colourContainer'>
             {self._listPaletteColors(item)}
@@ -45,25 +47,7 @@ var Palette = React.createClass({
   },
 
   _handleClick: function(e) {
-
-  },
-
-  _updateUrl: function(e) {
-    var path = '/palettes/' + e;
-    history.pushState(null, null, path);
-    this._parseUrl();
-  },
-
-  _parseUrl: function() {
-    splitPath = window.location.pathname.split('/');
-    if (splitPath[1] === '') {
-      console.log("I should be the index");
-    } else if (splitPath[1] === 'palettes') {
-      var id = splitPath[2];
-      console.log("I should be the details for palette id " + id);
-    } else {
-      alert('Something went horribly, horribly wrong.');
-    };
+    console.log(e);
   }
 
 });

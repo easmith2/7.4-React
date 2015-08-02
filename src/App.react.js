@@ -25,6 +25,7 @@ var App = React.createClass({
   },
 
   _getJSON: function(url, callback) {
+    console.log('in _getJSON, AJAX request');
     var request = new XMLHttpRequest();
     request.open('GET', url);
     request.onload = callback;
@@ -32,9 +33,9 @@ var App = React.createClass({
   },
 
   _updatePalettes: function(e) {
-    var updatedPalettes = this.state.palettes;
-    this.state.palettes.push(JSON.parse(e.target.responseText));
-    this.setState({palettes: updatedPalettes});
+    var statePalettes = this.state.palettes;
+    statePalettes.push(JSON.parse(e.target.responseText));
+    this.setState({palettes: statePalettes});
   },
 
   _loadHeader: function() {
@@ -47,13 +48,29 @@ var App = React.createClass({
   },
 
   _initRouter: function() {
-    this.router = Router({
-      '/palettes/:id': function(id) {
-        console.log('go to this page: ', '/palettes/' + id);
-      }
+    var self = this;
+    self.router = Router({
+      '/': self._showIndex,
+      '/palettes/:id': self._showDetails
     });
-    this.router.configure({ html5history: true });
-    this.router.init();
+    self.router.configure({ html5history: true });
+    self.router.init();
+
+    document.addEventListener('click', function(e) {
+      var targetHref = e.target.attributes.href.value;
+      if (targetHref && targetHref[0] === '/') {
+        e.preventDefault();
+        self.router.setRoute(targetHref);
+      };
+    })
+  },
+
+  _showIndex: function() {
+    console.log('in _showIndex');
+  },
+
+  _showDetails: function(id) {
+    console.log('in _showDetails, id is ', id);
   }
 
 });
