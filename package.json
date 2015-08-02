@@ -1,0 +1,29 @@
+{
+  "name": "palettes",
+  "version": "1.0.0",
+  "description": "Palette Management",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify -t reactify browser.js -o build/app.js",
+    "watch": "watchify -t reactify browser.js -d -o build/app.js -v"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/easmith2/7.4-React.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/easmith2/7.4-React/issues"
+  },
+  "homepage": "https://github.com/easmith2/7.4-React#readme",
+  "dependencies": {
+    "director": "^1.2.8",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "reactify": "^1.1.1"
+  }
+}

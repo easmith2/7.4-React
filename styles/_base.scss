@@ -1,0 +1,20 @@
+html {
+  box-sizing: border-box;
+}
+html,
+body {
+  font-size: 14px;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  margin: 0;
+  font-family: Quicksand, Arial, sans-serif;
+  color: #4D4D4D;
+}
+a {
+  text-decoration: none;
+}
