@@ -17,6 +17,8 @@ body {
 
 a {
   text-decoration: none; }
+  a:visited {
+    color: inherit; }
 
 .header__container {
   background-color: #595959;

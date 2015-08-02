@@ -2,7 +2,8 @@ var React = require('react');
 
 var Palette = React.createClass({
   propTypes: {
-    palette: React.PropTypes.array
+    palette: React.PropTypes.array,
+    detailed: React.PropTypes.bool
   },
 
   render: function() {
@@ -21,14 +22,9 @@ var Palette = React.createClass({
     return allPalettes.map(function(item) {
       return (
         <div className='palette__container' key={item.id}>
-          <div className='palette__title'>
-            <div>{item.title} | {item.category} |
-            <a href={'/palettes/' + item.id} data-js="titleHref"> see details</a>
-            </div>
-          </div>
-          <div className='palette__colourContainer'>
-            {self._listPaletteColors(item)}
-          </div>
+          {self._generatePaletteTitle(item)}
+          {self._listPaletteColors(item)}
+          {self._includeDetails(item)}
         </div>
       );
     })
@@ -46,8 +42,53 @@ var Palette = React.createClass({
       )
     });
     return (
-      paletteColours
+      <div className='palette__colourContainer'>
+        {paletteColours}
+      </div>
     )
+  },
+
+  _generatePaletteTitle: function(item) {
+    var self = this;
+    return (
+      <div className='palette__title'>
+        <div>{item.title} | {item.category}
+        {self._generateNavLink(item)}
+        </div>
+      </div>
+    )
+  },
+
+  _generateNavLink: function(item) {
+    if (this.props.detailed === true) {
+      return (
+        <a href={'/'} data-js="titleHref"> | return to all palettes</a>
+      )
+    } else {
+      return (
+        <a href={'/palettes/' + item.id} data-js="titleHref"> | see details</a>
+      )
+    }
+  },
+
+  _includeDetails: function(item) {
+    if (this.props.detailed === true) {
+      return (
+        <div className="palette__details">
+          <h4>Palette Title: {item.title}</h4>
+          <h4>Palette category: {item.category}</h4>
+          <h4>Palette Creator/Owner: {item.user.name}</h4>
+          <h4>Palette Composition:</h4>
+          <ol>
+            <li>{item.colours.dominant}</li>
+            <li>{item.colours.contrastingDominant}</li>
+            <li>{item.colours.subDominant}</li>
+            <li>{item.colours.contrastingSubDominant}</li>
+            <li>{item.colours.pop}</li>
+          </ol>
+        </div>
+      )
+    };
   }
 
 });

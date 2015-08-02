@@ -12,11 +12,7 @@ var App = React.createClass({
   componentDidMount: function() {
     this._getJSON('palettes.json', this._updatePalettes);
     this._initRouter();
-    this._listenForClicks();
-  },
-
-  componentDidUpdate: function() {
-    this._listenForClicks();
+    this._listenForTitleClicks();
   },
 
   render: function() {
@@ -45,7 +41,7 @@ var App = React.createClass({
   _loadHeader: function() {
     return (
       <div className='header__container'>
-        <h1>HexMex</h1>
+        <h1><a href='/' data-js='pageTitle'>HexMex</a></h1>
         <h2>...live colourfully...</h2>
       </div>
     )
@@ -70,7 +66,7 @@ var App = React.createClass({
     console.log('in _renderIndex');
     return (
       <div>
-        <Palettes palettes={this.state.palettes} listener={this._listenForClicks} />
+        <Palettes palettes={this.state.palettes} listener={this._listenForClicks} detailed={false} />
       </div>
     )
   },
@@ -88,23 +84,32 @@ var App = React.createClass({
     tempArr.push(justOnePalette);
     return (
       <div>
-        <Palettes palettes={tempArr} listener={this._listenForClicks} />
+        <Palettes palettes={tempArr} listener={this._listenForClicks} detailed={true} />
       </div>
     )
   },
 
   _listenForClicks: function() {
     var self = this;
-    var titleHrefs = document.querySelectorAll("a");
-    for (var i=0; i < titleHrefs.length; i++) {
-      titleHrefs[i].addEventListener('click', function(e) {
+    var refs = document.querySelectorAll('[data-js="titleHref"]');
+    for (var i=0; i < refs.length; i++) {
+      refs[i].addEventListener('click', function(e) {
         var targetHref = e.target.attributes.href.value;
         if (targetHref && targetHref[0] === '/') {
           e.preventDefault();
           self.router.setRoute(targetHref);
         };
       })
-    }
+    };
+  },
+
+  _listenForTitleClicks: function() {
+    var self = this;
+    var page_title = document.querySelector('[data-js="pageTitle"]');
+    page_title.addEventListener('click', function(e) {
+      e.preventDefault();
+      self.router.setRoute(e.target.attributes.href.value);
+    });
   }
 
 });
