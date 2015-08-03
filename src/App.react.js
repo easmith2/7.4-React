@@ -97,7 +97,7 @@ var App = React.createClass({
         var targetHref = e.target.attributes.href.value;
         if (targetHref && targetHref[0] === '/') {
           e.preventDefault();
-          self.router.setRoute(targetHref);
+          self._setRoute(targetHref);
         };
       })
     };
@@ -108,8 +108,12 @@ var App = React.createClass({
     var page_title = document.querySelector('[data-js="pageTitle"]');
     page_title.addEventListener('click', function(e) {
       e.preventDefault();
-      self.router.setRoute(e.target.attributes.href.value);
+      self._setRoute(e.target.attributes.href.value);
     });
+  },
+
+  _setRoute: function(route) {
+    this.router.setRoute(route);
   }
 
 });

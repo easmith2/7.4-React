@@ -1,5 +1,5 @@
 .DS_Store
 app.css.map
+.sass-cache
 npm-debug.log
-styles/.sass-cache
 node_modules/
