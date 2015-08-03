@@ -66,7 +66,7 @@ var App = React.createClass({
     console.log('in _renderIndex');
     return (
       <div>
-        <Palettes palettes={this.state.palettes} listener={this._listenForClicks} detailed={false} />
+        <Palettes palettes={this.state.palettes} listener={this._setRoute} detailed={false} />
       </div>
     )
   },
@@ -84,23 +84,9 @@ var App = React.createClass({
     tempArr.push(justOnePalette);
     return (
       <div>
-        <Palettes palettes={tempArr} listener={this._listenForClicks} detailed={true} />
+        <Palettes palettes={tempArr} listener={this._setRoute} detailed={true} />
       </div>
     )
-  },
-
-  _listenForClicks: function() {
-    var self = this;
-    var refs = document.querySelectorAll('[data-js="titleHref"]');
-    for (var i=0; i < refs.length; i++) {
-      refs[i].addEventListener('click', function(e) {
-        var targetHref = e.target.attributes.href.value;
-        if (targetHref && targetHref[0] === '/') {
-          e.preventDefault();
-          self._setRoute(targetHref);
-        };
-      })
-    };
   },
 
   _listenForTitleClicks: function() {

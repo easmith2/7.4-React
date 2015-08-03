@@ -20614,7 +20614,7 @@ var App = React.createClass({displayName: "App",
     console.log('in _renderIndex');
     return (
       React.createElement("div", null, 
-        React.createElement(Palettes, {palettes: this.state.palettes, listener: this._listenForClicks, detailed: false})
+        React.createElement(Palettes, {palettes: this.state.palettes, listener: this._setRoute, detailed: false})
       )
     )
   },
@@ -20632,23 +20632,9 @@ var App = React.createClass({displayName: "App",
     tempArr.push(justOnePalette);
     return (
       React.createElement("div", null, 
-        React.createElement(Palettes, {palettes: tempArr, listener: this._listenForClicks, detailed: true})
+        React.createElement(Palettes, {palettes: tempArr, listener: this._setRoute, detailed: true})
       )
     )
-  },
-
-  _listenForClicks: function() {
-    var self = this;
-    var refs = document.querySelectorAll('[data-js="titleHref"]');
-    for (var i=0; i < refs.length; i++) {
-      refs[i].addEventListener('click', function(e) {
-        var targetHref = e.target.attributes.href.value;
-        if (targetHref && targetHref[0] === '/') {
-          e.preventDefault();
-          self._setRoute(targetHref);
-        };
-      })
-    };
   },
 
   _listenForTitleClicks: function() {
@@ -20787,10 +20773,18 @@ var Palettes = React.createClass({displayName: "Palettes",
   },
 
   _listenForClicks: function() {
-    if (typeof this.props.listener === "function") {
-      this.props.listener();
-    }
-  }
+    var self = this;
+    var refs = document.querySelectorAll('[data-js="titleHref"]');
+    for (var i=0; i < refs.length; i++) {
+      refs[i].addEventListener('click', function(e) {
+        var targetHref = e.target.attributes.href.value;
+        if (targetHref && targetHref[0] === '/') {
+          e.preventDefault();
+          self.props.listener(targetHref);
+        };
+      })
+    };
+  },
 
 });
 
