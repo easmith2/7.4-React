@@ -17,9 +17,8 @@ body {
   background-color: rgba(89, 89, 89, 0.05); }
 
 a {
-  text-decoration: none; }
-  a:visited {
-    color: inherit; }
+  text-decoration: none;
+  color: inherit; }
 
 ol {
   margin: 0; }
