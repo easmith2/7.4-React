@@ -27,7 +27,7 @@ var Palettes = React.createClass({
     var self = this;
     var refs = document.querySelectorAll('[data-js="titleHref"]');
     for (var i=0; i < refs.length; i++) {
-      refs[i].addEventListener('click', function(e) {
+      refs[i].onClick(function(e) {
         var targetHref = e.target.attributes.href.value;
         if (targetHref && targetHref[0] === '/') {
           e.preventDefault();

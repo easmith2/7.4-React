@@ -92,7 +92,7 @@ var App = React.createClass({
   _listenForTitleClicks: function() {
     var self = this;
     var page_title = document.querySelector('[data-js="pageTitle"]');
-    page_title.addEventListener('click', function(e) {
+    page_title.onClick(function(e) {
       e.preventDefault();
       self._setRoute(e.target.attributes.href.value);
     });

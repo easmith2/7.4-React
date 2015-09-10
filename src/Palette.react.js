@@ -63,7 +63,7 @@ var Palette = React.createClass({
   _generateNavLink: function(item) {
     if (this.props.detailed === true) {
       return (
-        <a href={'/'} data-js="titleHref"> | return to all palettes</a>
+        <a href='/' data-js="titleHref"> | return to all palettes</a>
       )
     } else {
       return (
