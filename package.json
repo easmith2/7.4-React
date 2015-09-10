@@ -8,7 +8,7 @@
     "build": "browserify -t reactify browser.js -o build/app.js",
     "watchjs": "watch 'npm run build' src/",
     "watchsass": "sass --watch  styles/app.scss:app.css",
-    "start": "node index.js"
+    "start": "python -m SimpleHTTPServer"
   },
   "repository": {
     "type": "git",
