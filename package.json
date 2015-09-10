@@ -7,14 +7,15 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "browserify -t reactify browser.js -o build/app.js",
     "watchjs": "watch 'npm run build' src/",
-    "watchsass": "sass --watch  styles/app.scss:app.css"
+    "watchsass": "sass --watch  styles/app.scss:app.css",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/easmith2/7.4-React.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/easmith2/7.4-React/issues"
   },
