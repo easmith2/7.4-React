@@ -1,1 +1,1 @@
-web: node browser.js
+web: npm start
